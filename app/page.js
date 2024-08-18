@@ -1,95 +1,69 @@
+"use client"
+
 import Image from "next/image";
-import styles from "./page.module.css";
+
+import { Button, Container, Box, Typography, Grid,Stack } from "@mui/material";
+import Head from 'next/head'
+import {FeatureContainer, PriceContainer} from './components/GridContainer'
+import Link from "next/link";
+import { useUser} from "@clerk/nextjs";
+import { color, motion } from "framer-motion";
+import { LampContainer } from "./components/ui/lamp";
 
 export default function Home() {
+
+  const {isSignedIn, isLoaded, user} = useUser() 
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+   
+     
+    <Box width='100%' sx={{bgcolor:'#020618'}} >
+      <Head>
+        <title>SaaS FlashCards</title>
+        <meta name="description" content="Create flashcards from your text"/>
+      </Head>
+      
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* pricing and features container */}
+      <LampContainer >
+    <motion.h1
+      initial={{ opacity: 0.5, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.3,
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
+      className="mt-8 bg-gradient-to-br flex flex-col justify-center from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+    >
+        <Stack sx={{
+        dipltextAlign:'center',gap:2, alignItems:"center"
+      }
+      }>
+        
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <Typography variant="h3">Welcome to FlashCard SaaS</Typography>
+        <Typography variant="h6">The easiest way to make flashcards from your text</Typography>
+        <Link href={isSignedIn?'/generate':'/sign-in'} passHref><Button variant="contained">get started</Button></Link>
+        
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        
+        </Stack>
+        </motion.h1>
+       </LampContainer>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <Container sx={{color:'white',
+      
+        // background: 'linear-gradient(108deg, rgba(2,6,23,1) 0%, rgba(4,54,76,1) 50%, rgba(2,6,23,1) 100%)'
+      }}>
+        <FeatureContainer title='Features'/>
+        <PriceContainer title="Pricing"/>
+
+      </Container>
+      
+    </Box>
+    
+   
   );
 }
