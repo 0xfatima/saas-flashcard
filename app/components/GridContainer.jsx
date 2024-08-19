@@ -42,7 +42,7 @@ export const FeatureContainer = (props) => {
               {props.title}
           </Typography>
             <Box  my={0.5}display='flex' gap={4}
-      flexDirection='row' alignItems='center' justifyContent='center'>
+       alignItems='center' justifyContent='center' sx={{flexDirection:{lg:'row',md:'row', sm:'column', xs:'column'}}}>
   
               <PriceCard type="Basic" pricing="$5 / Month" 
               content="Access to basic flashcard features and limited storage" color='#E8E8E8'/>
