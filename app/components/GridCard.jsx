@@ -32,21 +32,36 @@ export const FeatureCard = (props) => {
 
 export const PriceCard = (props) => {
   return (
-    <Grid item xs={12} md={6}  >
-              <Box p={3} border="1px solid grey" borderRadius={2}>
-              <Typography variant="h5" gutterBottom>
+    
+              <Box p={3} border="1px solid grey" borderRadius={1} height={350} width={250}
+              display='flex' 
+    flexDirection='column' alignItems='center' justifyContent='center' gap={2}
+    bgcolor={props.color} color='#020618' sx={{
+      transition:'transform 0.5s ease',
+      ':hover':{
+        transform:'scale(1.1)',
+        cursor:'pointer'
+      }
+    }}
+    >
+              <Typography variant="h5" gutterBottom fontWeight='bold'>
                   {props.type} 
               </Typography>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h4" gutterBottom fontWeight='bold'>
                   {props.pricing} 
               </Typography>
               <Typography gutterBottom>
               {props.content}
               </Typography>
-              <Button variant='contained' color='primary'>
+              <Button variant='contained' 
+              sx={{bgcolor:'#F5004F',
+                ':hover':{
+                  bgcolor:'#F54C6F'
+                }
+              }}>
                 choose {props.type}
               </Button>
               </Box>
-            </Grid>
+           
   )
 }

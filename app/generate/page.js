@@ -55,15 +55,15 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
       
       const batch = writeBatch(db);
       const userDocRef = doc(collection(db,'users'),user.id);
-      const docSnap = await getDoc(userDocRef)
+      const userDocSnap = await getDoc(userDocRef)
 
-      if(docSnap.exists()){
-        const collections = docSnap.collection.flashcards || []
+      if(userDocSnap.exists()){
+        const collections = userDocSnap.data()?.flashcards || []
         if(collections.find(f => f.name === name)){
           alert('Flashcards with this name already exist')
           return  
         }else{
-          collections.push(name)
+          collections.push({name})
           batch.set(userDocRef,{flashcards:collections}, {merge:true})
         }
       }else{
@@ -85,7 +85,7 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
       <Box display='flex' flexDirection='column' sx={{
         mt:4, mb:6, alignItems:'center'
       }}>
-      <Typography variant='h3'>
+      <Typography variant='h3' color='white' fontWeight='bold'>
         Generate Flashcards
       </Typography>
 
@@ -118,8 +118,16 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
         }}/>
         
         <Box display='flex' justifyContent='space-between'>
-        <Button onClick={()=>handleSubmit()} variant='contained'>Submit</Button>
-        <Button variant='contained' onClick={handleOpen}>Save</Button>
+        <Box>
+        <Button onClick={()=>handleSubmit()} variant='contained' sx={{bgcolor:'#F54C6F', ':hover':{
+          bgcolor:'#F5004F'
+        }}}>Submit</Button>
+        </Box>
+        <Box>
+        <Button variant='contained' onClick={handleOpen} sx={{bgcolor:'#F54C6F', ':hover':{
+          bgcolor:'#F5004F'
+        }}}>Save</Button>
+        </Box>
         </Box>
       </Paper>
       </Box>
@@ -129,9 +137,9 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
         <Grid container spacing={2}>
            {flashcards.map((card,index)=>(
             <Grid item sm={6} md={4} key={index} >
-            <Card>
+            <Card sx={{bgcolor:'#D0D0D0', color:'#020618'}}>
               <CardActionArea onClick={()=>handleCardClick(index)}>
-                <CardContent>
+                <CardContent sx={{}}>
               <Box  sx={{
                   perspective:'1000px', 
                   position:'relative',
@@ -147,6 +155,7 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
                   boxShadow:'0 4px 8px 0px rgba(0,0,0,0.4)',
                   width: '100%',
                 height: '100%',
+                bgcolor:'#E8E8E8',
             
             transform:flipped[index]?'rotateY(180deg)':'rotateY(0deg)'
       
@@ -194,9 +203,21 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
                     borderRadius:1,
                    
                   }}>
-                    <Box width='20' height='10' bgcolor='green'>
-                      Answer
-                    </Box>
+                    <Box sx={{width:150, height:50,display:'flex',
+                    alignItems:'center',justifyContent:'center',
+                    color:'white', 
+                    position:'absolute',top: 0, // Position at the top
+                    left: 0,
+                  transition:'transform 0.5s ease',
+                  transform:'rotate(-15deg)',
+                  background: 'rgba(76, 175, 80, 0.7)' ,
+                 ':hover':{
+                    transform:'rotate(0deg)',
+                    background: 'rgba(76, 175, 80, 0.7)' 
+                    ,color:'white', 
+                 } }} >
+                  <Typography variant="h6" textTransform='capitalize'>Answer</Typography>
+                </Box>
                       <Typography variant='h6' >{card.back}</Typography>
                     
                   </Box>
@@ -211,10 +232,10 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
         
         </Box>}
 
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Save Cards</DialogTitle>
+        <Dialog open={open} onClose={handleClose} >
+          <DialogTitle sx={{fontWeight:'bold', color:'#020618'}}>Save Cards</DialogTitle>
           <DialogContent>
-            <DialogContentText>
+            <DialogContentText >
             Enter a name for your flashcards
             </DialogContentText>
           <TextField autoFocus margin='dense' value={name} 
@@ -223,8 +244,18 @@ import { Container, Box, Typography, Grid, Button, TextField, Paper, Card, CardA
           </DialogContent>
           
             <DialogActions>
-              <Button onClick={handleClose}>cancel</Button>
-              <Button onClick={saveFlashCards}>Save</Button>
+              <Box>
+              <Button onClick={handleClose} variant='contained'
+              sx={{bgcolor:'#F54C6F', ':hover':{
+                bgcolor:'#F5004F'
+              }}}>cancel</Button>
+              </Box>
+              <Box>
+                <Button onClick={saveFlashCards} variant='contained'
+              sx={{bgcolor:'#F54C6F', ':hover':{
+                bgcolor:'#F5004F'
+              }}}
+              >Save</Button></Box>
             </DialogActions>
         </Dialog>
 

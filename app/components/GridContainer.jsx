@@ -5,8 +5,8 @@ import { Grid, Box, Typography } from '@mui/material'
 
 export const FeatureContainer = (props) => {
     return (
-        <Box pb={6}>
-        <Typography variant="h4">
+        <Box pb={6} pt={15}>
+        <Typography variant="h4" fontWeight='bold'>
             {props.title}
             </Typography>
 
@@ -35,17 +35,21 @@ export const FeatureContainer = (props) => {
   
   export const PriceContainer = (props) => {
     return (
-      <Box textAlign="center" py={6}>
-          <Typography variant="h4">
+      <Box textAlign="center" py={6} display='flex' 
+      flexDirection='column' alignItems='center' justifyContent='center' gap={4}
+      >
+          <Typography variant="h4" fontWeight='bold'>
               {props.title}
           </Typography>
-            <Grid container spacing={4} my={0.5}>
+            <Box  my={0.5}display='flex' gap={4}
+      flexDirection='row' alignItems='center' justifyContent='center'>
   
               <PriceCard type="Basic" pricing="$5 / Month" 
-              content="Access to basic flashcard features and limited storage" />
-              <PriceCard type="Basic" pricing="$5 / Month" 
-              content="Access to basic flashcard features and limited storage" />
-            </Grid>
+              content="Access to basic flashcard features and limited storage" color='#E8E8E8'/>
+
+              <PriceCard type="Pro" pricing="$10 / Month" 
+              content="Access to Pro flashcard features and unlimited storage" color='#87CEFA' />
+            </Box>
           </Box>
     )
   }

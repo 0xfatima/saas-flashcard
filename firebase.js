@@ -12,8 +12,8 @@ const firebaseConfig = {
   authDomain: "saas-flashcardsa-ai.firebaseapp.com",
   projectId: "saas-flashcardsa-ai",
   storageBucket: "saas-flashcardsa-ai.appspot.com",
-  messagingSenderId:process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId:process.env.FIREBASE_APPID,
+  messagingSenderId:"930993377632",
+  appId:"1:930993377632:web:6e32c6fc24d30423c54e05",
   measurementId: "G-G23C57MWSV"
 };
 

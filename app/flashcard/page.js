@@ -9,6 +9,7 @@ import { Container, Card, CardActionArea,
      CardContent,Box, Typography, Grid, Button } from "@mui/material"
 
 
+
 export default function Flashcard(){
     const {isLoaded, isSignedIn, user}= useUser()
     const [flashcards, setFlashcards]= useState([])
@@ -59,14 +60,24 @@ export default function Flashcard(){
     }
 
     return(
-        <Container width='100vw'>
+        <Container maxWidth='md' sx={{py:2}}>
             
                 {flashcards.length>0 && <Box>
-        <Typography>Flashcards preview</Typography>
+        <Typography py={2} variant='h3' 
+        fontWeight={'bold'} 
+        textTransform='capitalize'
+        sx={{WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',
+          background:'linear-gradient(to right, #ADD8E6, #B0E0E6, #87CEFA, #FFB6C1, #FF69B4)',
+          backgroundClip: 'text',
+          display: 'inline' }}
+        
+        >
+          Flashcard:{` ${search}`}
+          </Typography>
         <Grid container spacing={2}>
            {flashcards.map((card,index)=>(
-            <Grid item sm={6} md={4} key={index} >
-            <Card>
+            <Grid item sm={6} md={4} xs={12}  key={index} >
+            <Card sx={{bgcolor:'#D0D0D0', color:'#020618'}}>
               <CardActionArea onClick={()=>handleCardClick(index)}>
                 <CardContent>
               <Box  sx={{
@@ -84,7 +95,7 @@ export default function Flashcard(){
                   boxShadow:'0 4px 8px 0px rgba(0,0,0,0.4)',
                   width: '100%',
                 height: '100%',
-            
+            bgcolor:'#E8E8E8',
             transform:flipped[index]?'rotateY(180deg)':'rotateY(0deg)'
       
         
@@ -130,9 +141,11 @@ export default function Flashcard(){
                     textAlign:'center',
                     borderRadius:1,
                    
-                  }}><Button sx={{width:'12vw', height:'15',
+                  }}>
+                    <Box sx={{width:150, height:50,display:'flex',alignItems:'center',justifyContent:'center',
                     color:'white', 
-                  position:'relative', bottom:75, right:105,
+                    position:'absolute',top: 0, // Position at the top
+                    left: 0,
                   transition:'transform 0.5s ease',
                   transform:'rotate(-15deg)',
                   background: 'rgba(76, 175, 80, 0.7)' ,
@@ -142,7 +155,7 @@ export default function Flashcard(){
                     ,color:'white', 
                  } }} >
                   <Typography variant="h6" textTransform='capitalize'>Answer</Typography>
-                </Button>
+                </Box>
                   
                       <Typography variant='h6' >{card.back}</Typography>
                     
